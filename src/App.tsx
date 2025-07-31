@@ -34,6 +34,16 @@ function App() {
 			)
 		: [];
 
+	const onSongBack = () => {
+		setSelectedSong(null);
+		setFilter("");
+	};
+
+	const selectSong = (song: Song) => {
+		setSelectedSong(song);
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	};
+
 	return (
 		<div className={`${theme.background} min-h-screen font-sans`}>
 			<main className="container mx-auto p-4 max-w-2xl">
@@ -63,7 +73,7 @@ function App() {
 								<li
 									key={song.number}
 									className={`p-4 rounded-lg cursor-pointer transition-colors ${theme.li} ${theme.liHover}`}
-									onClick={() => setSelectedSong(song)}
+									onClick={() => selectSong(song)}
 								>
 									<p
 										className={`font-semibold ${theme.foreground}`}
@@ -77,7 +87,7 @@ function App() {
 				) : (
 					<SongViewer
 						song={selectedSong}
-						onBack={() => setSelectedSong(null)}
+						onBack={() => onSongBack()}
 						theme={theme}
 					/>
 				)}

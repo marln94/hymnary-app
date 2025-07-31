@@ -12,7 +12,7 @@ function ThemeSelector({ activeThemeKey, onChange }: Props) {
 	useEffect(() => {
 		const stored = (localStorage.getItem("theme") as ThemeKey) || "light";
 		onChange(stored);
-	}, []);
+	}, [onChange]);
 
 	function handleChange(selected: ThemeKey) {
 		onChange(selected);
