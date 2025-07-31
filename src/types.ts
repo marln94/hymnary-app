@@ -7,3 +7,12 @@ export type Song = {
 		content: string;
 	}>;
 };
+
+export type ThemeKey = "light" | "dark" | "space";
+
+export type Theme = {
+	name: string;
+	background: string;
+	foreground: string;
+	placeholder: string;
+};

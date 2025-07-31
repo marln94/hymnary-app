@@ -1,59 +1,42 @@
 // src/components/ThemeSelector.tsx
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { themes } from "../themes";
+import type { ThemeKey } from "../types";
 
-type ThemeKey = "light" | "dark" | "sepia";
-
-const themes: Record<ThemeKey, { name: string; class: string }> = {
-	light: {
-		name: "Claro",
-		class: "bg-white text-black",
-	},
-	dark: {
-		name: "Oscuro",
-		class: "bg-black text-white",
-	},
-	sepia: {
-		name: "Sepia",
-		class: "bg-sepia text-sepiaText",
-	},
+type Props = {
+	activeThemeKey: ThemeKey;
+	onChange: (value: ThemeKey) => void;
 };
 
-function ThemeSelector() {
-	const [theme, setTheme] = useState<ThemeKey>("light");
-
+function ThemeSelector({ activeThemeKey, onChange }: Props) {
 	useEffect(() => {
 		const stored = (localStorage.getItem("theme") as ThemeKey) || "light";
-		setTheme(stored);
-		applyTheme(stored);
+		onChange(stored);
 	}, []);
 
-	function applyTheme(selected: ThemeKey) {
-		document.documentElement.className = "";
-		const classes = themes[selected].class.split(" ");
-		classes.forEach((cls) => document.documentElement.classList.add(cls));
-	}
-
-	function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-		const selected = e.target.value as ThemeKey;
-		setTheme(selected);
+	function handleChange(selected: ThemeKey) {
+		onChange(selected);
 		localStorage.setItem("theme", selected);
-		applyTheme(selected);
 	}
 
 	return (
-		<div className="mb-4">
-			<label className="mr-2 font-medium">Tema:</label>
-			<select
-				value={theme}
-				onChange={handleChange}
-				className="p-2 border rounded"
-			>
-				{Object.entries(themes).map(([key, t]) => (
-					<option key={key} value={key}>
-						{t.name}
-					</option>
+		<div className="absolute top-4 right-4">
+			<div className="flex items-center gap-2 rounded-full bg-card p-1">
+				{(Object.keys(themes) as ThemeKey[]).map((key) => (
+					<button
+						key={key}
+						onClick={() => handleChange(key)}
+						className={`w-8 h-8 rounded-full transition-all ${
+							themes[key].background
+						} ${
+							activeThemeKey === key
+								? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+								: ""
+						}`}
+						aria-label={`Switch to ${themes[key].name} theme`}
+					/>
 				))}
-			</select>
+			</div>
 		</div>
 	);
 }
