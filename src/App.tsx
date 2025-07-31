@@ -62,7 +62,7 @@ function App() {
 							{results.map((song) => (
 								<li
 									key={song.number}
-									className="p-4 bg-card rounded-lg cursor-pointer hover:bg-card/80 transition-colors"
+									className={`p-4 rounded-lg cursor-pointer transition-colors ${theme.li} ${theme.liHover}`}
 									onClick={() => setSelectedSong(song)}
 								>
 									<p

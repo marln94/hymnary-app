@@ -5587,7 +5587,18 @@
 	},
 	{
 		"number": "203",
-		"title": "0 204 ¡OH, CRISTO MIO, REY!",
+		"title": "CORITO",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\n// Estaremos juntos en ese día glorioso,\nEn la tierra por Dios prometida; //\n// Tierra, tierra, por Jehová bendita, //\nPues, como herencia dio a nuestros mayores,\n// Y con los santos en ella reinará. //"
+			}
+		]
+	},
+	{
+		"number": "204",
+		"title": "¡OH, CRISTO MIO, REY!",
 		"sections": [
 			{
 				"section_type": "verse",
@@ -7034,7 +7045,7 @@
 	},
 	{
 		"number": "258",
-		"title": "5 (SALMO 19)",
+		"title": "SALMO DE LA LEY\n(SALMO 19)",
 		"sections": [
 			{
 				"section_type": "verse",
@@ -7065,53 +7076,343 @@
 	},
 	{
 		"number": "259",
-		"title": "A Porque me ha hecho bien.//",
-		"sections": []
+		"title": "SALMO DE LA ORACIÓN\n(SALMO 13)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\n¿Hasta cuándo, Jehová?\n¿Me olvidarás para siempre?\n¿Hasta cuándo esconderás,\nTu rostro de mí?"
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\n¿Hasta cuándo pondré\nconsejos en mi alma,\nCon ansiedad en mi corazón cada día?\n¿Hasta cuándo será enaltecido,\nmi enemigo sobre mí?"
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nMira, óyeme, Jehová Dios mío:\nAlumbra mis ojos,\nporque no duerma en muerte."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 4,
+				"content": "\nPorque no diga mi enemigo: Vencílo;\nMis enemigos se alegrarán,\nsi yo resbalare."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 5,
+				"content": "\nMas yo en tu misericordia\nhe confiado:\nAlegraráse mi corazón, en tu salud."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 6,
+				"content": "\n//Cantaré a Jehová,\nPorque me ha hecho bien.//"
+			}
+		]
 	},
 	{
 		"number": "260",
-		"title": "6 Por todas las generaciones. Amén.",
-		"sections": []
+		"title": "SALMO DE ALABANZA\n(SALMO 100)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nCantad alegres a Dios,\nHabitantes de toda la tierra."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nServid a Jehová con alegría,\nVenid ante su acatamiento\nCon regocijo."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nReconoced que Jehová,\nEl es Dios.\nEl nos hizo, y no nosotros\nA nosotros mismos.\nPueblo suyo somos,\nY ovejas de su prado."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 4,
+				"content": "\nEntrad por sus puertas,\nCon reconocimiento,\nPor sus atrios con alabanza:\n//Alabadle, bendecid su nombre.//"
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 5,
+				"content": "\nPorque Jehová es bueno,\nPara siempre es su misericordia\nY su verdad,\nPor todas las generaciones. Amén."
+			}
+		]
 	},
 	{
 		"number": "261",
-		"title": "A El cual ha hecho, los cielos y la tierra.",
-		"sections": []
+		"title": "SALMO DE ALABANZA\n(SALMO 117)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nAlabad a Jehová, naciones todas.\nAlabad a Jehová, naciones todas.\nPueblos todos, alabadle,\nPueblos todos, alabadle."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nPorque ha engrandecido,\nSobre nosotros su misericordia;\nY la verdad de Jehová es para siempre.\nAleluya, Aleluya, Aleluya."
+			}
+		]
+	},
+	{
+		"number": "262",
+		"title": "SALMO DE ALABANZA\n(SALMO 134)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nMirad, bendecid a Jehová,\nVosotros todos\nLos siervos de Jehová,\nLos que en la casa de Jehová\nEstáis por las noches."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nAlzad vuestras manos al santuario,\nY bendecid a Jehová."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nBendigate Jehová desde Sión,\nEl cual ha hecho, los cielos y la tierra."
+			}
+		]
 	},
 	{
 		"number": "263",
-		"title": "6 Desde ahora y para siempre. Amén.",
-		"sections": []
+		"title": "SALMO DE ESPERANZA\n(SALMO 121)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nAlzaré mis ojos a los montes,\n¿De dónde vendrá mi socorro?"
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nMi socorro viene de Jehová,\nQue hizo los cielos y la tierra."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nNo dará tu pie al resbaladero,\nNi se dormirá el que te guarda."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 4,
+				"content": "\nHe aquí no se adormecerá, ni dormirá,\nEl que guarda a Israel."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 5,
+				"content": "\nJehová es tu guardador,\nJehová es tu sombra,\nA tu mano derecha."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 6,
+				"content": "\nEl sol no te fatigará de día,\nNi la luna de noche."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 7,
+				"content": "\nJehová te guardará de todo mal,\nEl guardará tu alma."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 8,
+				"content": "\nJehová guardará tu salida y tu entrada,\nDesde ahora y para siempre. Amén."
+			}
+		]
 	},
 	{
 		"number": "264",
-		"title": "A Soberbios.",
-		"sections": []
+		"title": "SALMO DE IMPLORACION\n(SALMO 123)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nA ti que habitas en los cielos,\nAlcé mis ojos."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nHe aquí como los ojos de los siervos,\nMiran a la mano\nDe sus señores;\nY como los ojos de la sierva,\nA la mano de su señora;\nAsí nuestros ojos miran a Jehová,\nNuestro Dios.\nHasta que haya misericordia\nDe nosotros."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nTen misericordia de nosotros,\nOh Jehová,\nTen misericordia de nosotros;\nPorque estamos muy hartos\nDe menosprecio."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 4,
+				"content": "\nMuy harta está nuestra alma\nDe escarnio de los holgados,\nY del menosprecio de los\nSoberbios."
+			}
+		]
 	},
 	{
 		"number": "265",
-		"title": "6 trayendo sus gavillas.//",
-		"sections": []
+		"title": "SALMO DE ESPERANZA\n(SALMO 126)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nCuando Jehová hiciera tornar\nLa cautividad de Sión,\n//Seremos como los que sueñan.//"
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nEntonces nuestra boca se henchirá de risa\nY nuestra lengua de alabanza,\nEntonces dirán entre las gentes:\nGrandes cosas ha hecho Jehová con éstos."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nGrandes cosas ha hecho Jehová\nCon nosotros,\n//Estaremos alegres.//"
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 4,
+				"content": "\nHaz volver nuestra cautividad,\nOh, Jehová,\nComo los arroyos en el austro."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 5,
+				"content": "\n//Los que sembraron con lágrimas,\ncon regocijo segarán.//"
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 6,
+				"content": "\nIrán andando y llorando,\nEl que lleva la preciosa simiente;\n//Mas volverán a venir con regocijo,\ntrayendo sus gavillas.//"
+			}
+		]
 	},
 	{
 		"number": "266",
-		"title": "A Jehová. ¡Aleluya!",
-		"sections": []
+		"title": "SALMO DE ALABANZA\n(SALMO 150)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nAlabad a Dios en su santuario,\nAlabadle en la extensión\nDe su fortaleza."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nAlabadle por sus proezas,\nAlabadle conforme a la muchedumbre\nDe su grandeza."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nAlabadle a son de bocina,\nAlabadle con salterio y arpa."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 4,
+				"content": "\nAlabadle con adufe y flauta,\nAlabadle con cuerdas y órgano."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 5,
+				"content": "\nAlabadle con címbalos resonantes,\nAlabadle con címbalos de júbilo."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 6,
+				"content": "\nTodo lo que respira alabe a\nJehová. ¡Aleluya!"
+			}
+		]
 	},
 	{
 		"number": "267",
-		"title": "6 Su misericordia es para siempre.",
-		"sections": []
-	},
-	{
-		"number": "7",
-		"title": "  Su misericordia es para siempre.",
-		"sections": []
+		"title": "SALMO DE MISERICORDIA\n(SALMO 136)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nAlabad a Jehová, porque es bueno,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nAlabad al Dios de los dioses,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nAlabad al Señor de los señores,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 4,
+				"content": "\nAl solo que hace grandes maravillas,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 5,
+				"content": "\nAl que hizo los cielos con entendimiento,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 6,
+				"content": "\nAl que tendió la tierra sobre las aguas,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 7,
+				"content": "\nAl que hizo las grandes luminarias\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 8,
+				"content": "\nEl sol para que dominase en el día,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 9,
+				"content": "\nLa luna y las estrellas, para que\ndominasen en la noche,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 10,
+				"content": "\nAlabad al Dios de los cielos,\nPorque para siempre es su misericordia.\nSu misericordia es para siempre."
+			}
+		]
 	},
 	{
 		"number": "268",
-		"title": "6 Por largos días.",
-		"sections": []
+		"title": "SALMO DE ESPERANZA\n(SALMO 23)",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\nJehová es mi pastor,\nNada me faltará."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nEn lugares de delicados pastos,\nMe hará yacer,\nJunto a aguas de reposo\nMe pastoreará."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 3,
+				"content": "\nConfortará mi alma,\nGuiaráme por sendas de justicia,\nPor amor de su nombre."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 4,
+				"content": "\nAunque ande en valle de sombra\nDe muerte;\nNo temeré mal alguno, porque\nTú estarás conmigo;\nTu vara y tu cayado me infundirán aliento."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 5,
+				"content": "\nAderezarás mesa delante de mi,\nEn presencia de mis angustiadores;\nUngiste mi cabeza con aceite,\nMi copa está rebosando."
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 6,
+				"content": "\nCiertamente el bien y la misericordia,\nMe seguirán todos los días de mi vida,\nY en la casa de Jehová moraré,\nPor largos días."
+			}
+		]
 	},
 	{
 		"number": "269",
@@ -10521,7 +10822,7 @@
 		]
 	},
 	{
-		"number": "395",
+		"number": "396",
 		"title": "SALMO 32",
 		"sections": [
 			{
@@ -10547,7 +10848,7 @@
 		]
 	},
 	{
-		"number": "396",
+		"number": "397",
 		"title": "SALMO 93",
 		"sections": [
 			{
@@ -10569,6 +10870,27 @@
 				"section_type": "verse",
 				"sort_index": 4,
 				"content": "\nTus testimonios son muy firmes:\nLa santidad conviene a tu casa,\nOh Jehová, por los siglos y para siempre.//"
+			}
+		]
+	},
+	{
+		"number": "398",
+		"title": "SALMO 128",
+		"sections": [
+			{
+				"section_type": "verse",
+				"sort_index": 1,
+				"content": "\n//Bienaventurado//,\nTodo aquel que teme a Jehová,\nQue anda en sus caminos.\n//Cuando comieres//\nEl trabajo de tus manos,\nBienaventurado, bienaventurado tú,\nY tendrás bien."
+			},
+			{
+				"section_type": "chorus",
+				"sort_index": 0,
+				"content": "\nTu mujer será como parra que lleva fruto\nA los lados de tu casa;\n//Tus hijos como plantas de olivas\nAlrededor de tu mesa.//"
+			},
+			{
+				"section_type": "verse",
+				"sort_index": 2,
+				"content": "\nHe aquí que así será bendito el hombre\nQue teme, que teme a Jehová.\nBendígate Jehová desde Sión,\nY veas el bien de Jerusalén\nTodos lo días de tu vida.\nY veas los hijos de tus hijos,\nY la paz sobre Israel."
 			}
 		]
 	}

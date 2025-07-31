@@ -15,4 +15,6 @@ export type Theme = {
 	background: string;
 	foreground: string;
 	placeholder: string;
+	li: string;
+	liHover: string;
 };
