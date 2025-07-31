@@ -17,4 +17,5 @@ export type Theme = {
 	placeholder: string;
 	li: string;
 	liHover: string;
+	liHighlight: string;
 };

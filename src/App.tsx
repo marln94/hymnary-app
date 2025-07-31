@@ -8,13 +8,26 @@ import SearchBar from "./components/SearchBar";
 import SongViewer from "./components/SongViewer";
 import ThemeSelector from "./components/ThemeSelector";
 
+import { useFuse } from "./hooks/useFuse";
+
+const fuseOptions = {
+	threshold: 0.3,
+	ignoreLocation: true,
+	includeScore: true,
+	includeMatches: true,
+	ignoreDiacritics: true,
+	keys: ["number", "title", "sections.content"],
+};
+
 function App() {
 	const [themeKey, setThemeKey] = useState<ThemeKey>("light");
 	const [theme, setTheme] = useState<Theme>(themes[themeKey]);
 
 	const [songs, setSongs] = useState<Song[]>([]);
-	const [filter, setFilter] = useState<string>("");
 	const [selectedSong, setSelectedSong] = useState<Song | null>(null);
+	// const [results, setResults] = useState<Song[]>([]);
+
+	const { hits, onSearch, query, updateQuery } = useFuse(songs, fuseOptions);
 
 	useEffect(() => {
 		fetch("/data/hymns.json")
@@ -26,17 +39,9 @@ function App() {
 		setTheme(themes[themeKey]);
 	}, [themeKey]);
 
-	const results = filter.trim()
-		? songs.filter(
-				(song) =>
-					song.title.toLowerCase().includes(filter.toLowerCase()) ||
-					song.number.toString().includes(filter), // TODO: implement content search
-			)
-		: [];
-
 	const onSongBack = () => {
 		setSelectedSong(null);
-		setFilter("");
+		updateQuery("");
 	};
 
 	const selectSong = (song: Song) => {
@@ -63,16 +68,16 @@ function App() {
 							</p>
 						</header>
 						<SearchBar
-							value={filter}
-							onChange={setFilter}
+							value={query}
+							onChange={(value) => onSearch(value)}
 							theme={theme}
 						/>
 
 						<ul className="mt-6 space-y-2">
-							{results.map((song) => (
+							{hits.map((song) => (
 								<li
 									key={song.number}
-									className={`p-4 rounded-lg cursor-pointer transition-colors ${theme.li} ${theme.liHover}`}
+									className={`p-4 rounded-lg cursor-pointer transition-colors flex gap-5 justify-between ${theme.li} ${theme.liHover}`}
 									onClick={() => selectSong(song)}
 								>
 									<p
@@ -80,6 +85,13 @@ function App() {
 									>
 										{song.number} - {song.title}
 									</p>
+									{song.highlights.length > 0 && (
+										<p
+											className={`font-light italic ${theme.liHighlight}`}
+										>
+											{song.highlights[0]}
+										</p>
+									)}
 								</li>
 							))}
 						</ul>
