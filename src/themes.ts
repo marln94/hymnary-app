@@ -9,6 +9,7 @@ export const themes: Record<ThemeKey, Theme> = {
 		li: "bg-stone-100",
 		liHover: "hover:bg-stone-300",
 		liHighlight: "text-stone-500",
+		themeRingBorderColor: "text-stone-900/20",
 	},
 	dark: {
 		name: "Oscuro",
@@ -18,6 +19,7 @@ export const themes: Record<ThemeKey, Theme> = {
 		li: "bg-stone-700",
 		liHover: "hover:bg-stone-500",
 		liHighlight: "text-stone-400",
+		themeRingBorderColor: "text-stone-50/20",
 	},
 	space: {
 		name: "Espacio",
@@ -27,5 +29,6 @@ export const themes: Record<ThemeKey, Theme> = {
 		li: "bg-violet-700",
 		liHover: "hover:bg-violet-500",
 		liHighlight: "text-violet-100",
+		themeRingBorderColor: "text-white/20",
 	},
 };

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Song, Theme } from "../types";
+import { ArrowUp, ArrowDown, ArrowLeft } from "lucide-react";
+
 type Props = {
 	song: Song;
 	onBack: () => void;
@@ -43,42 +45,36 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 	}, [song]);
 
 	return (
-		<div className="relative min-h-screen flex flex-col items-center justify-center px-4 py-8">
+		<div className="relative min-h-screen flex flex-col items-center justify-center py-4 sm:py-8">
 			{!presentationMode && (
-				<button
-					onClick={onBack}
-					className={`mb-6 cursor-pointer ${theme.foreground}`}
-				>
-					← Volver a la búsqueda
-				</button>
-			)}
-			{/* <button
-				onClick={onBack}
-				className={`mb-8 flex items-center gap-2 ${theme.foreground} hover:text-foreground transition-colors cursor-pointer`}
-			>
-				<svg
-					className="w-5 h-5"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth={2}
-						d="M15 19l-7-7 7-7"
-					/>
-				</svg>
-				Volver a la búsqueda
-			</button> */}
-			<div className={`text-center max-w-4xl w-full ${theme.foreground}`}>
-				{!presentationMode && (
-					<h2
-						className={`text-3xl font-bold mb-4 ${theme.foreground}`}
+				<div className="fixed top-4 left-4 flex flex-col space-y-3 z-50">
+					<button
+						onClick={onBack}
+						className={`mb-6 cursor-pointer ${theme.foreground}`}
+						aria-label="Volver a la búsqueda"
 					>
-						{song.number} - {song.title}
-					</h2>
+						<ArrowLeft size={30} />
+					</button>
+				</div>
+			)}
+			<div
+				className={`text-center max-w-4xl w-full pt-4 sm:pt-0 ${theme.foreground}`}
+			>
+				{!presentationMode && (
+					<div
+						className={`text-3xl font-bold mb-4${theme.foreground}`}
+					>
+						<h2
+							className={`text-3xl font-bold mb-4${theme.foreground}`}
+						>
+							{song.number}
+						</h2>
+						<h2
+							className={`text-3xl font-bold mb-4${theme.foreground}`}
+						>
+							{song.title}
+						</h2>
+					</div>
 				)}
 				{presentationMode ? (
 					<>
@@ -109,49 +105,22 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 						</>
 					))
 				)}
-				{/* <div className="mt-8 text-2xl leading-loose">
-					{sortedSections.map((section, index) => (
-						<div
-							key={index}
-							className={
-								presentationMode
-									? "flex flex-col justify-center items-center min-h-screen px-4 py-6"
-									: ""
-							}
-						>
-							<p className="font-semibold italic mb-2">
-								{section.section_type === "chorus"
-									? "Coro"
-									: `Estrofa ${section.sort_index}`}
-							</p>
-							<pre
-								className={`whitespace-pre-wrap font-sans ${
-									presentationMode
-										? "text-2xl md:text-4xl lg:text-5xl leading-loose text-center font-semibold"
-										: "text-lg leading-relaxed"
-								}`}
-							>
-								{section.content.trim()}
-							</pre>
-						</div>
-					))}
-				</div> */}
 			</div>
 			{presentationMode && (
-				<div className="fixed bottom-6 right-4 flex flex-col space-y-3 sm:hidden z-50">
+				<div className="fixed top-6 right-4 flex flex-col space-y-3 sm:hidden z-50">
 					<button
 						onClick={scrollUp}
-						className="bg-white/80 hover:bg-white text-black rounded-full p-3 shadow-lg backdrop-blur"
+						className="bg-white/50 hover:bg-white text-black rounded-full p-3 shadow-lg backdrop-blur"
 						aria-label="Sección anterior"
 					>
-						⬆️
+						<ArrowUp size={20} />
 					</button>
 					<button
 						onClick={scrollDown}
-						className="bg-white/80 hover:bg-white text-black rounded-full p-3 shadow-lg backdrop-blur"
+						className="bg-white/50 hover:bg-white text-black rounded-full p-3 shadow-lg backdrop-blur"
 						aria-label="Siguiente sección"
 					>
-						⬇️
+						<ArrowDown size={20} />
 					</button>
 				</div>
 			)}
