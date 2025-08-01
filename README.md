@@ -19,7 +19,7 @@ Una aplicación web estática para consultar y proyectar letras de cantos utiliz
 
 ## 📁 Estructura del proyecto
 
-- `public/`: contiene el `cantos.json` y los archivos estáticos.
+- `public/`: contiene el `hymns.json` y los archivos estáticos.
 - `src/`
     - `App.tsx`: entrada principal.
     - `components/`: componentes reutilizables como `SearchBar`, `SongViewer`, etc.
