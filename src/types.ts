@@ -1,11 +1,13 @@
+export type Section = {
+	section_type: "chorus" | "verse";
+	sort_index: number;
+	content: string;
+};
+
 export type Song = {
 	number: number;
 	title: string;
-	sections: Array<{
-		section_type: string;
-		sort_index: number;
-		content: string;
-	}>;
+	sections: Section[];
 };
 
 export type ThemeKey = "light" | "dark" | "space";

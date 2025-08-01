@@ -1,69 +1,78 @@
-# React + TypeScript + Vite
+# 🎶 Himnos de la Iglesia - Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web estática para consultar y proyectar letras de cantos utilizados en nuestra congregación. Diseñada para ser extremadamente amigable en móviles y pantallas grandes, permite buscar por número, título o contenido de la letra.
 
-Currently, two official plugins are available:
+> 📌 Proyecto sin backend, ideal para abrir desde navegadores con conexión lenta. Todo el contenido se encuentra pre-cargado y optimizado.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Características principales
 
-## Expanding the ESLint configuration
+- 🔎 Búsqueda instantánea por título, número o contenido del canto.
+- 📱 Vista tipo presentación (karaoke) para facilitar el uso en reuniones, cultos o ensayos.
+- 🎨 Cambios de tema de colores para facilitar la lectura en diferentes ambientes.
+- 🎹 Navegación con teclado (flechas) para una experiencia fluida en pantallas grandes.
+- 📱 Botones visibles para navegación táctil en móviles.
+- ⚡️ Aplicación 100% estática y ligera. Sin necesidad de conexión constante.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📷 Vista previa
 
-```js
-export default tseslint.config([
-	globalIgnores(["dist"]),
-	{
-		files: ["**/*.{ts,tsx}"],
-		extends: [
-			// Other configs...
+> (Agrega aquí un gif o captura de pantalla si lo deseas)
 
-			// Remove tseslint.configs.recommended and replace with this
-			...tseslint.configs.recommendedTypeChecked,
-			// Alternatively, use this for stricter rules
-			...tseslint.configs.strictTypeChecked,
-			// Optionally, add this for stylistic rules
-			...tseslint.configs.stylisticTypeChecked,
+## 📁 Estructura del proyecto
 
-			// Other configs...
-		],
-		languageOptions: {
-			parserOptions: {
-				project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-				tsconfigRootDir: import.meta.dirname,
-			},
-			// other options...
-		},
-	},
-]);
-```
+- `public/`: contiene el `cantos.json` y los archivos estáticos.
+- `src/`
+    - `App.tsx`: entrada principal.
+    - `components/`: componentes reutilizables como `SearchBar`, `SongViewer`, etc.
+    - `hooks/`: lógica compartida como el filtrado.
+    - `themes.ts`: temas de colores y estilos de presentación.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚖️ Licencia
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+Este proyecto distribuye su **código bajo la licencia MIT**.
 
-export default tseslint.config([
-	globalIgnores(["dist"]),
-	{
-		files: ["**/*.{ts,tsx}"],
-		extends: [
-			// Other configs...
-			// Enable lint rules for React
-			reactX.configs["recommended-typescript"],
-			// Enable lint rules for React DOM
-			reactDom.configs.recommended,
-		],
-		languageOptions: {
-			parserOptions: {
-				project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-				tsconfigRootDir: import.meta.dirname,
-			},
-			// other options...
-		},
-	},
-]);
-```
+> ⚠️ **Importante:**  
+> Las letras de los cantos contenidas en este proyecto son propiedad de sus respectivos autores.  
+> Este proyecto se distribuye con fines educativos, devocionales y sin ánimo de lucro.  
+> No se autoriza su uso comercial sin la autorización correspondiente de los autores de los cantos.
+
+---
+
+## 🔧 TODO / Próximos features
+
+- [ ] Soporte para repetición de coros
+- [ ] Soporte para canciones con 2 o más coros
+- [ ] Modo sin conexión (PWA).
+- [ ] Compatibilidad con pantallas externas (modo proyector).
+- [ ] Agregar transición entre cantos en modo presentación.
+- [ ] Selector de fuente tipográfica (para lectura disléxica o de alta visibilidad).
+
+---
+
+## 🚀 Cómo correr el proyecto localmente
+
+1. Clona el repositorio
+
+    ```bash
+    git clone https://github.com/marln94/hymnary-app.git
+    cd hymnary-app
+    ```
+
+2. Instala las dependencias
+
+    ```bash
+    npm install
+    ```
+
+3. Ejecuta el servidor local
+    ```bash
+    npm run dev
+    ```
+
+## 🙌 Contribuciones
+
+¿Tienes ideas o mejoras? ¡Bienvenido! Puedes crear un Pull Request o abrir un Issue.
+
+## ✉️ Contacto
+
+Para sugerencias, mejoras o permisos sobre letras, puedes escribir a:
+[Marlon Calderón](mrln9eca+hymnary-app@gmail.com)

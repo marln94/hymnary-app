@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import "./App.css";
 import type { Song, Theme, ThemeKey } from "./types";
@@ -22,10 +23,11 @@ const fuseOptions = {
 function App() {
 	const [themeKey, setThemeKey] = useState<ThemeKey>("light");
 	const [theme, setTheme] = useState<Theme>(themes[themeKey]);
+	const [presentationMode, setPresentationMode] = useState(false);
 
 	const [songs, setSongs] = useState<Song[]>([]);
-	const [selectedSong, setSelectedSong] = useState<Song | null>(null);
-	// const [results, setResults] = useState<Song[]>([]);
+	const { songNumber } = useParams<{ songNumber: string }>();
+	const navigate = useNavigate();
 
 	const { hits, onSearch, query, updateQuery } = useFuse(songs, fuseOptions);
 
@@ -40,22 +42,41 @@ function App() {
 	}, [themeKey]);
 
 	const onSongBack = () => {
-		setSelectedSong(null);
-		updateQuery("");
+		navigate("/");
 	};
 
 	const selectSong = (song: Song) => {
-		setSelectedSong(song);
+		navigate(`/songs/${song.number}`);
 		window.scrollTo({ top: 0, behavior: "smooth" });
+		updateQuery("");
 	};
+
+	const selectedSong = songNumber
+		? songs.find((s) => s.number.toString() === songNumber)
+		: null;
 
 	return (
 		<div className={`${theme.background} min-h-screen font-sans`}>
-			<main className="container mx-auto p-4 max-w-2xl">
+			<main className="container mx-auto p-4">
 				<ThemeSelector
 					activeThemeKey={themeKey}
 					onChange={(key) => setThemeKey(key)}
 				/>
+
+				{selectedSong && (
+					<div className="fixed bottom-4 left-4 z-50">
+						<button
+							onClick={() =>
+								setPresentationMode(!presentationMode)
+							}
+							className="text-sm bg-blue-600 text-white px-3 py-1 rounded shadow"
+						>
+							{presentationMode
+								? "Salir presentación"
+								: "Modo presentación"}
+						</button>
+					</div>
+				)}
 
 				{!selectedSong ? (
 					<>
@@ -101,6 +122,7 @@ function App() {
 						song={selectedSong}
 						onBack={() => onSongBack()}
 						theme={theme}
+						presentationMode={presentationMode}
 					/>
 				)}
 			</main>
