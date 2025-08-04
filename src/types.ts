@@ -21,4 +21,6 @@ export type Theme = {
 	liHover: string;
 	liHighlight: string;
 	themeRingBorderColor: string;
+	themeRingBackground: string;
+	themeRingForeground: string;
 };

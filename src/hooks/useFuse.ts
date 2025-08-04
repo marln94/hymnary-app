@@ -8,9 +8,7 @@ export const useFuse = <T>(list: T[], options: object) => {
 	const debouncedQuery = useDebounce(query, 400);
 
 	// let's memoize the fuse instance for performances
-	const fuse = useMemo(() => {
-		return new Fuse(list, options);
-	}, [list, options]);
+	const fuse = useMemo(() => new Fuse(list, options), [list, options]);
 
 	// memoize results whenever the query or options change
 	const hits = useMemo(() => {
