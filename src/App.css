@@ -1,0 +1,27 @@
+.lyrics-container {
+	height: 100vh;
+	overflow-y: scroll;
+	scroll-snap-type: y mandatory;
+	padding: 50vh 0;
+	scrollbar-width: none; /* For Firefox */
+	-ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.lyrics-container::-webkit-scrollbar {
+	display: none; /* For Chrome, Safari, and Opera */
+}
+
+.lyrics-line {
+	opacity: 0.5;
+	transition:
+		opacity 0.3s ease-in-out,
+		transform 0.3s ease-in-out;
+	transform: scale(0.95);
+	scroll-snap-align: center;
+}
+
+.lyrics-line-active {
+	opacity: 1;
+	transform: scale(1);
+	font-weight: 600;
+}

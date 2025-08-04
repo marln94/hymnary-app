@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import type { Song, Theme } from "../types";
 import { ArrowUp, ArrowDown, ArrowLeft } from "lucide-react";
 
@@ -10,39 +10,100 @@ type Props = {
 };
 
 function SongViewer({ song, onBack, theme, presentationMode }: Props) {
-	const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+	const [currentLine, setCurrentLine] = useState(0);
+	const scrollRef = useRef<HTMLDivElement>(null);
 
-	const scrollUp = () => {
-		setCurrentSectionIndex((prev) => Math.max(prev - 1, 0));
+	const allLines = useMemo(
+		() =>
+			song.sections
+				.flatMap((section) => {
+					const sectionTitle =
+						section.section_type === "chorus"
+							? "Coro"
+							: `Estrofa ${section.sort_index}`;
+					return [
+						{ type: "section", content: sectionTitle },
+						...section.content.split("\n").map((line) => ({
+							type: "lyric",
+							content: line,
+						})),
+					];
+				})
+				.filter((line) => line.content.trim() !== ""),
+		[song.sections],
+	);
+
+	const scrollToLine = (lineNumber: number) => {
+		if (scrollRef.current) {
+			const lineElements = scrollRef.current.children;
+			if (lineElements[lineNumber]) {
+				const line = lineElements[lineNumber] as HTMLElement;
+				scrollRef.current.scrollTop =
+					line.offsetTop -
+					scrollRef.current.offsetHeight / 2 +
+					line.offsetHeight / 2;
+			}
+		}
 	};
 
-	const scrollDown = () => {
-		setCurrentSectionIndex((prev) =>
-			Math.min(prev + 1, song.sections.length - 1),
-		);
-	};
+	const scrollUp = useCallback(() => {
+		const prevLine = Math.max(currentLine - 1, 0);
+		setCurrentLine(prevLine);
+		scrollToLine(prevLine);
+	}, [currentLine]);
+
+	const scrollDown = useCallback(() => {
+		const nextLine = Math.min(currentLine + 1, allLines.length - 1);
+		setCurrentLine(nextLine);
+		scrollToLine(nextLine);
+	}, [currentLine, allLines]);
 
 	useEffect(() => {
 		if (!presentationMode) return;
 
 		const handleKeyDown = (e: KeyboardEvent) => {
-			if (e.key === "ArrowUp" && currentSectionIndex > 0) {
-				setCurrentSectionIndex((i) => i - 1);
-			} else if (
-				e.key === "ArrowDown" &&
-				currentSectionIndex < song.sections.length - 1
-			) {
-				setCurrentSectionIndex((i) => i + 1);
+			if (e.key === "ArrowUp") {
+				e.preventDefault();
+				scrollUp();
+			} else if (e.key === "ArrowDown") {
+				e.preventDefault();
+				scrollDown();
 			}
 		};
 
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [presentationMode, currentSectionIndex, song.sections.length]);
+	}, [presentationMode, currentLine, allLines.length, scrollUp, scrollDown]);
 
 	useEffect(() => {
-		setCurrentSectionIndex(0); // reset when song changes
-	}, [song]);
+		setCurrentLine(0);
+		if (scrollRef.current) {
+			scrollRef.current.scrollTop = 0;
+		}
+	}, [song, presentationMode]);
+
+	const handleScroll = () => {
+		if (scrollRef.current) {
+			const { scrollTop, offsetHeight } = scrollRef.current;
+			const lineElements = scrollRef.current.children;
+			const containerCenter = scrollTop + offsetHeight / 2;
+
+			let closestLine = 0;
+			let minDistance = Infinity;
+
+			for (let i = 0; i < lineElements.length; i++) {
+				const line = lineElements[i] as HTMLElement;
+				const lineCenter = line.offsetTop + line.offsetHeight / 2;
+				const distance = Math.abs(containerCenter - lineCenter);
+
+				if (distance < minDistance) {
+					minDistance = distance;
+					closestLine = i;
+				}
+			}
+			setCurrentLine(closestLine);
+		}
+	};
 
 	return (
 		<div className="relative min-h-screen flex flex-col items-center justify-center py-4 sm:py-8">
@@ -58,11 +119,11 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 				</div>
 			)}
 			<div
-				className={`text-center max-w-4xl w-full pt-4 sm:pt-0 ${theme.foreground}`}
+				className={`text-center w-full pt-4 sm:pt-0 ${theme.foreground}`}
 			>
 				{!presentationMode && (
 					<div
-						className={`text-3xl font-bold mb-4${theme.foreground}`}
+						className={`text-3xl font-bold mb-4 ${theme.foreground}`}
 					>
 						<h2
 							className={`text-3xl font-bold mb-4${theme.foreground}`}
@@ -77,32 +138,48 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 					</div>
 				)}
 				{presentationMode ? (
-					<>
-						<p className="font-semibold italic mb-2">
-							{song.sections[currentSectionIndex]
-								?.section_type === "chorus"
-								? "Coro"
-								: `Estrofa ${song.sections[currentSectionIndex]?.sort_index}`}
-						</p>
-						<pre className="whitespace-pre-wrap text-3xl md:text-5xl font-semibold leading-relaxed text-center">
-							{song.sections[currentSectionIndex]?.content}
-						</pre>
-					</>
+					<div
+						ref={scrollRef}
+						onScroll={handleScroll}
+						className="lyrics-container"
+					>
+						{allLines.map((line, index) => {
+							if (line.type === "section") {
+								return (
+									<p
+										key={index}
+										className="font-semibold mt-8 md:text-xl opacity-50"
+									>
+										{line.content}
+									</p>
+								);
+							}
+							return (
+								<p
+									key={index}
+									className={`lyrics-line text-3xl md:text-9xl leading-relaxed ${
+										index === currentLine
+											? "lyrics-line-active"
+											: ""
+									}`}
+								>
+									{line.content || "\u00A0"}
+								</p>
+							);
+						})}
+					</div>
 				) : (
 					song.sections.map((section, idx) => (
-						<>
-							<p className="font-semibold italic mb-2">
+						<div key={idx}>
+							<p className="font-semibold opacity-50 -mb-6">
 								{section.section_type === "chorus"
 									? "Coro"
 									: `Estrofa ${section.sort_index}`}
 							</p>
-							<pre
-								key={idx}
-								className="whitespace-pre-wrap mb-6 text-lg leading-relaxed"
-							>
+							<pre className="whitespace-pre-wrap mb-8 text-lg md:text-2xl leading-relaxed">
 								{section.content}
 							</pre>
-						</>
+						</div>
 					))
 				)}
 			</div>
