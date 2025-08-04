@@ -38,7 +38,7 @@ function ThemeSelector({ activeThemeKey, onChange }: Props) {
 						<button
 							key={key}
 							onClick={() => handleChange(key)}
-							className={`w-9 h-9 rounded-full transition-all ${
+							className={`w-9 h-9 rounded-full transition-all cursor-pointer ${
 								themes[key].background
 							} ${
 								activeThemeKey === key

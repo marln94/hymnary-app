@@ -57,8 +57,8 @@ function App() {
 		: null;
 
 	return (
-		<div className={`${theme.background} min-h-screen font-sans`}>
-			<main className="container mx-auto px-4">
+		<div className={`${theme.background} font-sans`}>
+			<main className="container mx-auto px-4 flex flex-col min-h-screen">
 				<ThemeSelector
 					activeThemeKey={themeKey}
 					onChange={(key) => setThemeKey(key)}
@@ -82,16 +82,16 @@ function App() {
 				)}
 
 				{!selectedSong ? (
-					<>
+					<div className="flex-grow flex flex-col items-center transition-all duration-300 justify-center">
 						<header
-							className={`text-center py-8 ${theme.foreground}`}
+							className={`text-center pb-8 ${theme.foreground}`}
 						>
 							<h1 className="text-4xl font-bold">Himnario</h1>
 							<p className="text-muted-foreground">
 								Encuentra tu himno favorito
 							</p>
 						</header>
-						<div className="flex justify-center">
+						<div className="flex justify-center w-full max-w-3xl">
 							<SearchBar
 								value={query}
 								onChange={(value) => onSearch(value)}
@@ -99,7 +99,7 @@ function App() {
 							/>
 						</div>
 
-						<div className="flex justify-center flex-col items-center">
+						<div className="flex justify-center flex-col items-center w-full max-w-3xl">
 							<ul className="mt-6 space-y-2 max-w-3xl w-full">
 								{hits.map((song) => (
 									<li
@@ -123,7 +123,7 @@ function App() {
 								))}
 							</ul>
 						</div>
-					</>
+					</div>
 				) : (
 					<SongViewer
 						song={selectedSong}
