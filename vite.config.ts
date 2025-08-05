@@ -13,7 +13,7 @@ export default defineConfig({
 			includeAssets: ["favicon.svg", "favicon.ico", "robots.txt"],
 			manifest: {
 				name: "Himnario",
-				short_name: "Himnos",
+				short_name: "Himnario",
 				start_url: "/",
 				display: "standalone",
 				background_color: "#ffffff",
