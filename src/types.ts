@@ -23,4 +23,5 @@ export type Theme = {
 	themeRingBorderColor: string;
 	themeRingBackground: string;
 	themeRingForeground: string;
+	gradientStops: string;
 };

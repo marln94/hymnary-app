@@ -122,34 +122,39 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 					</header>
 				)}
 				{presentationMode ? (
-					<div
-						ref={scrollRef}
-						className="lyrics-container py-[20vh] sm:py-[50vh]"
-					>
-						{allLines.map((line, index) => {
-							if (line.type === "section") {
+					<div className="relative">
+						<div
+							ref={scrollRef}
+							className="lyrics-container py-[20vh] sm:py-[50vh]"
+						>
+							{allLines.map((line, index) => {
+								if (line.type === "section") {
+									return (
+										<p
+											key={index}
+											className="font-semibold mt-8 md:text-xl opacity-20"
+										>
+											{line.content}
+										</p>
+									);
+								}
 								return (
 									<p
 										key={index}
-										className="font-semibold mt-8 md:text-xl opacity-20"
+										className={`text-3xl  md:text-9xl leading-relaxed opacity-20 font-bold transition-opacity ${
+											index === currentLine
+												? "opacity-100"
+												: ""
+										}`}
 									>
-										{line.content}
+										{line.content || "\u00A0"}
 									</p>
 								);
-							}
-							return (
-								<p
-									key={index}
-									className={`text-3xl  md:text-9xl leading-relaxed opacity-20 font-bold transition-opacity ${
-										index === currentLine
-											? "opacity-100"
-											: ""
-									}`}
-								>
-									{line.content || "\u00A0"}
-								</p>
-							);
-						})}
+							})}
+						</div>
+						<div
+							className={`absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t ${theme.gradientStops}`}
+						/>
 					</div>
 				) : (
 					song.sections.map((section, idx) => (
@@ -170,7 +175,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 				<div className="fixed bottom-4 flex flex-row gap-2 z-50">
 					<button
 						onClick={scrollUp}
-						className={`rounded-full p-3 shadow-lg backdrop-blur opacity-80 ${theme.themeRingBackground}`}
+						className={`rounded-full p-3 shadow-lg backdrop-blur opacity-80 cursor-pointer ${theme.themeRingBackground}`}
 						aria-label="Sección anterior"
 					>
 						<ArrowUp
@@ -180,7 +185,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 					</button>
 					<button
 						onClick={scrollDown}
-						className={`rounded-full p-3 shadow-lg backdrop-blur opacity-80 ${theme.themeRingBackground} ${suggestAction ? "animate-bounce" : ""}`}
+						className={`rounded-full p-3 shadow-lg backdrop-blur opacity-80 cursor-pointer ${theme.themeRingBackground} ${suggestAction ? "animate-bounce" : ""}`}
 						aria-label="Siguiente sección"
 					>
 						<ArrowDown
