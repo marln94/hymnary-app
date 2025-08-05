@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
-import type { Song, Theme } from "../types";
+import type { Song, Theme, Section } from "../types";
 import { ArrowUp, ArrowDown, ArrowLeft } from "lucide-react";
 
 type Props = {
@@ -9,14 +9,37 @@ type Props = {
 	presentationMode: boolean;
 };
 
+function expandSongSections(song: Song): Section[] {
+	const expanded: Section[] = [];
+
+	const chorus = song.sections.find((s) => s.section_type === "chorus");
+
+	for (const section of song.sections) {
+		if (section.section_type === "verse") {
+			expanded.push(section);
+			if (chorus) {
+				expanded.push(chorus);
+			}
+		} else if (section.section_type !== "chorus") {
+			expanded.push(section);
+		}
+	}
+
+	return expanded;
+}
+
 function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 	const [currentLine, setCurrentLine] = useState(0);
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const [suggestAction, setSuggestAction] = useState(true);
 
+	const expandedSongSections = useMemo(() => {
+		return expandSongSections(song);
+	}, [song]);
+
 	const allLines = useMemo(
 		() =>
-			song.sections
+			expandedSongSections
 				.flatMap((section) => {
 					const sectionTitle =
 						section.section_type === "chorus"
@@ -31,7 +54,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 					];
 				})
 				.filter((line) => line.content.trim() !== ""),
-		[song.sections],
+		[expandedSongSections],
 	);
 
 	const scrollToLine = useCallback((lineNumber: number) => {

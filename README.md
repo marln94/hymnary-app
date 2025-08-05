@@ -39,7 +39,7 @@ Este proyecto distribuye su **código bajo la licencia MIT**.
 
 ## 🔧 TODO / Próximos features
 
-- [ ] Soporte para repetición de coros
+- [x] Soporte para repetición de coros
 - [ ] Soporte para canciones con 2 o más coros
 - [ ] Modo sin conexión (PWA).
 - [ ] Compatibilidad con pantallas externas (modo proyector).
