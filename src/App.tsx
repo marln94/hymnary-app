@@ -13,6 +13,8 @@ import Loader from "./components/Loader";
 
 import { useFuse } from "./hooks/useFuse";
 
+import hymns from "./data/hymns.module.json";
+
 const fuseOptions = {
 	threshold: 0.3,
 	ignoreLocation: true,
@@ -35,12 +37,8 @@ function App() {
 	const { hits, onSearch, query, updateQuery } = useFuse(songs, fuseOptions);
 
 	useEffect(() => {
-		fetch("/data/hymns.json")
-			.then((res) => res.json())
-			.then((data: Song[]) => {
-				setSongs(data);
-				setLoading(false);
-			});
+		setSongs(hymns as Song[]);
+		setLoading(false);
 	}, []);
 
 	useEffect(() => {
@@ -62,7 +60,7 @@ function App() {
 		: null;
 
 	const renderContent = () => {
-		if (loading && songNumber) {
+		if (loading) {
 			return <Loader theme={theme} />;
 		}
 
