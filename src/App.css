@@ -1,0 +1,15 @@
+.lyrics-container {
+	height: 100vh;
+	overflow-y: scroll;
+	scroll-snap-type: y mandatory;
+	scrollbar-width: none; /* For Firefox */
+	-ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.lyrics-container::-webkit-scrollbar {
+	display: none; /* For Chrome, Safari, and Opera */
+}
+
+.lyrics-line {
+	scroll-snap-align: center;
+}

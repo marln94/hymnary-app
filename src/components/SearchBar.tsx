@@ -8,7 +8,7 @@ type Props = {
 
 function SearchBar({ value, onChange, theme }: Props) {
 	return (
-		<div className="relative">
+		<div className="relative max-w-3xl w-full">
 			<input
 				type="text"
 				placeholder="Buscar por título, número o letra..."
