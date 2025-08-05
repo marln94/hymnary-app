@@ -9,6 +9,7 @@ import { themes } from "./themes";
 import SearchBar from "./components/SearchBar";
 import SongViewer from "./components/SongViewer";
 import ThemeSelector from "./components/ThemeSelector";
+import Loader from "./components/Loader";
 
 import { useFuse } from "./hooks/useFuse";
 
@@ -25,6 +26,7 @@ function App() {
 	const [themeKey, setThemeKey] = useState<ThemeKey>("light");
 	const [theme, setTheme] = useState<Theme>(themes[themeKey]);
 	const [presentationMode, setPresentationMode] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	const [songs, setSongs] = useState<Song[]>([]);
 	const { songNumber } = useParams<{ songNumber: string }>();
@@ -35,7 +37,10 @@ function App() {
 	useEffect(() => {
 		fetch("/data/hymns.json")
 			.then((res) => res.json())
-			.then((data: Song[]) => setSongs(data));
+			.then((data: Song[]) => {
+				setSongs(data);
+				setLoading(false);
+			});
 	}, []);
 
 	useEffect(() => {
@@ -55,6 +60,66 @@ function App() {
 	const selectedSong = songNumber
 		? songs.find((s) => s.number.toString() === songNumber)
 		: null;
+
+	const renderContent = () => {
+		if (loading && songNumber) {
+			return <Loader theme={theme} />;
+		}
+
+		if (selectedSong) {
+			return (
+				<SongViewer
+					song={selectedSong}
+					onBack={() => onSongBack()}
+					theme={theme}
+					presentationMode={presentationMode}
+				/>
+			);
+		}
+
+		return (
+			<div className="flex-grow flex flex-col items-center transition-all duration-300 justify-center h-lvh">
+				<header className={`text-center pb-8 ${theme.foreground}`}>
+					<h1 className="text-5xl font-bold">Himnario</h1>
+					<p className="text-muted-foreground text-lg">
+						Encuentra tu himno favorito
+					</p>
+				</header>
+				<div className="flex justify-center w-full max-w-3xl">
+					<SearchBar
+						value={query}
+						onChange={(value) => onSearch(value)}
+						theme={theme}
+					/>
+				</div>
+
+				<div className="flex justify-center flex-col items-center w-full max-w-3xl">
+					<ul className="mt-6 space-y-2 max-w-3xl w-full">
+						{hits.map((song) => (
+							<li
+								key={song.number}
+								className={`p-4 rounded-lg cursor-pointer transition-colors flex gap-5 justify-between ${theme.li} ${theme.liHover}`}
+								onClick={() => selectSong(song)}
+							>
+								<p
+									className={`font-semibold ${theme.foreground}`}
+								>
+									{song.number} - {song.title}
+								</p>
+								{song.highlights.length > 0 && (
+									<p
+										className={`font-light italic ${theme.liHighlight}`}
+									>
+										{song.highlights[0]}
+									</p>
+								)}
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		);
+	};
 
 	return (
 		<div className={`${theme.background} font-sans`}>
@@ -88,58 +153,7 @@ function App() {
 						</button>
 					</div>
 				)}
-
-				{!selectedSong ? (
-					<div className="flex-grow flex flex-col items-center transition-all duration-300 justify-center h-lvh">
-						<header
-							className={`text-center pb-8 ${theme.foreground}`}
-						>
-							<h1 className="text-5xl font-bold">Himnario</h1>
-							<p className="text-muted-foreground text-lg">
-								Encuentra tu himno favorito
-							</p>
-						</header>
-						<div className="flex justify-center w-full max-w-3xl">
-							<SearchBar
-								value={query}
-								onChange={(value) => onSearch(value)}
-								theme={theme}
-							/>
-						</div>
-
-						<div className="flex justify-center flex-col items-center w-full max-w-3xl">
-							<ul className="mt-6 space-y-2 max-w-3xl w-full">
-								{hits.map((song) => (
-									<li
-										key={song.number}
-										className={`p-4 rounded-lg cursor-pointer transition-colors flex gap-5 justify-between ${theme.li} ${theme.liHover}`}
-										onClick={() => selectSong(song)}
-									>
-										<p
-											className={`font-semibold ${theme.foreground}`}
-										>
-											{song.number} - {song.title}
-										</p>
-										{song.highlights.length > 0 && (
-											<p
-												className={`font-light italic ${theme.liHighlight}`}
-											>
-												{song.highlights[0]}
-											</p>
-										)}
-									</li>
-								))}
-							</ul>
-						</div>
-					</div>
-				) : (
-					<SongViewer
-						song={selectedSong}
-						onBack={() => onSongBack()}
-						theme={theme}
-						presentationMode={presentationMode}
-					/>
-				)}
+				{renderContent()}
 			</main>
 		</div>
 	);
