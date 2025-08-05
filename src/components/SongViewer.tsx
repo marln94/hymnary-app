@@ -141,7 +141,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 								return (
 									<p
 										key={index}
-										className={`text-3xl  md:text-9xl leading-relaxed opacity-20 font-bold transition-opacity ${
+										className={`text-3xl md:text-9xl leading-relaxed opacity-20 font-bold transition-opacity ${
 											index === currentLine
 												? "opacity-100"
 												: ""
@@ -153,7 +153,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 							})}
 						</div>
 						<div
-							className={`absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t ${theme.gradientStops}`}
+							className={`pointer-events-none absolute bottom-0 left-0 right-0 h-2/5 sm:h-1/4 bg-gradient-to-t ${theme.gradientStops}`}
 						/>
 					</div>
 				) : (

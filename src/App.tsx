@@ -94,8 +94,8 @@ function App() {
 						<header
 							className={`text-center pb-8 ${theme.foreground}`}
 						>
-							<h1 className="text-4xl font-bold">Himnario</h1>
-							<p className="text-muted-foreground">
+							<h1 className="text-5xl font-bold">Himnario</h1>
+							<p className="text-muted-foreground text-lg">
 								Encuentra tu himno favorito
 							</p>
 						</header>
