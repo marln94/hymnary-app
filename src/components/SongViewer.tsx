@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import type { Song, Theme } from "../types";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import type { Song, Theme, Section } from "../types";
 import { ArrowUp, ArrowDown, ArrowLeft } from "lucide-react";
 
 type Props = {
@@ -9,118 +9,212 @@ type Props = {
 	presentationMode: boolean;
 };
 
+function expandSongSections(song: Song): Section[] {
+	const expanded: Section[] = [];
+
+	const chorus = song.sections.find((s) => s.section_type === "chorus");
+
+	for (const section of song.sections) {
+		if (section.section_type === "verse") {
+			expanded.push(section);
+			if (chorus) {
+				expanded.push(chorus);
+			}
+		} else if (section.section_type !== "chorus") {
+			expanded.push(section);
+		}
+	}
+
+	return expanded;
+}
+
 function SongViewer({ song, onBack, theme, presentationMode }: Props) {
-	const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+	const [currentLine, setCurrentLine] = useState(0);
+	const scrollRef = useRef<HTMLDivElement>(null);
+	const [suggestAction, setSuggestAction] = useState(true);
 
-	const scrollUp = () => {
-		setCurrentSectionIndex((prev) => Math.max(prev - 1, 0));
-	};
+	const expandedSongSections = useMemo(() => {
+		return expandSongSections(song);
+	}, [song]);
 
-	const scrollDown = () => {
-		setCurrentSectionIndex((prev) =>
-			Math.min(prev + 1, song.sections.length - 1),
-		);
-	};
+	const allLines = useMemo(
+		() =>
+			expandedSongSections
+				.flatMap((section) => {
+					const sectionTitle =
+						section.section_type === "chorus"
+							? "Coro"
+							: `Estrofa ${section.sort_index}`;
+					return [
+						{ type: "section", content: sectionTitle },
+						...section.content.split("\n").map((line) => ({
+							type: "lyric",
+							content: line,
+						})),
+					];
+				})
+				.filter((line) => line.content.trim() !== ""),
+		[expandedSongSections],
+	);
+
+	const scrollToLine = useCallback((lineNumber: number) => {
+		if (scrollRef.current) {
+			const lineElements = scrollRef.current.children;
+			if (lineElements[lineNumber]) {
+				const line = lineElements[lineNumber] as HTMLElement;
+
+				// Use scrollIntoView for more reliable centering
+				line.scrollIntoView({ block: "center", behavior: "smooth" });
+			}
+		}
+	}, []);
+
+	const scrollUp = useCallback(() => {
+		let prevLine = Math.max(currentLine - 1, 0);
+		if (allLines[prevLine].type === "section" && prevLine > 0) {
+			prevLine--;
+		}
+		setCurrentLine(prevLine);
+		scrollToLine(prevLine);
+		setSuggestAction(false);
+	}, [allLines, currentLine, scrollToLine]);
+
+	const scrollDown = useCallback(() => {
+		let nextLine = Math.min(currentLine + 1, allLines.length - 1);
+		if (
+			allLines[nextLine].type === "section" &&
+			nextLine < allLines.length - 1
+		) {
+			nextLine++;
+		}
+		setCurrentLine(nextLine);
+		scrollToLine(nextLine);
+		setSuggestAction(false);
+	}, [currentLine, allLines, scrollToLine]);
 
 	useEffect(() => {
 		if (!presentationMode) return;
 
 		const handleKeyDown = (e: KeyboardEvent) => {
-			if (e.key === "ArrowUp" && currentSectionIndex > 0) {
-				setCurrentSectionIndex((i) => i - 1);
-			} else if (
-				e.key === "ArrowDown" &&
-				currentSectionIndex < song.sections.length - 1
-			) {
-				setCurrentSectionIndex((i) => i + 1);
+			if (e.key === "ArrowUp") {
+				e.preventDefault();
+				scrollUp();
+			} else if (e.key === "ArrowDown") {
+				e.preventDefault();
+				scrollDown();
 			}
 		};
 
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [presentationMode, currentSectionIndex, song.sections.length]);
+	}, [presentationMode, scrollUp, scrollDown]);
 
 	useEffect(() => {
-		setCurrentSectionIndex(0); // reset when song changes
-	}, [song]);
+		setCurrentLine(0);
+		if (scrollRef.current) {
+			scrollRef.current.scrollTop = 0;
+		}
+	}, [song, presentationMode]);
 
 	return (
-		<div className="relative min-h-screen flex flex-col items-center justify-center py-4 sm:py-8">
+		<div
+			className={`relative min-h-screen flex flex-col items-center justify-center ${!presentationMode ? "py-4 sm:py-8" : ""}`}
+		>
 			{!presentationMode && (
-				<div className="fixed top-4 left-4 flex flex-col space-y-3 z-50">
+				<div
+					className={`fixed top-4 left-4 z-50 rounded-full opacity-80 ${theme.background}`}
+				>
 					<button
 						onClick={onBack}
-						className={`mb-6 cursor-pointer ${theme.foreground}`}
+						className={`p-2 cursor-pointer ${theme.foreground}`}
 						aria-label="Volver a la búsqueda"
 					>
-						<ArrowLeft size={30} />
+						<ArrowLeft size={22} />
 					</button>
 				</div>
 			)}
 			<div
-				className={`text-center max-w-4xl w-full pt-4 sm:pt-0 ${theme.foreground}`}
+				className={`text-center w-full pt-4 sm:pt-0 ${theme.foreground}`}
 			>
 				{!presentationMode && (
-					<div
-						className={`text-3xl font-bold mb-4${theme.foreground}`}
+					<header
+						className={`text-3xl font-bold my-10 ${theme.foreground}`}
 					>
-						<h2
-							className={`text-3xl font-bold mb-4${theme.foreground}`}
-						>
-							{song.number}
-						</h2>
-						<h2
-							className={`text-3xl font-bold mb-4${theme.foreground}`}
-						>
-							{song.title}
-						</h2>
-					</div>
+						<h2 className="mb-4">{song.number}</h2>
+						<h2>{song.title}</h2>
+					</header>
 				)}
 				{presentationMode ? (
-					<>
-						<p className="font-semibold italic mb-2">
-							{song.sections[currentSectionIndex]
-								?.section_type === "chorus"
-								? "Coro"
-								: `Estrofa ${song.sections[currentSectionIndex]?.sort_index}`}
-						</p>
-						<pre className="whitespace-pre-wrap text-3xl md:text-5xl font-semibold leading-relaxed text-center">
-							{song.sections[currentSectionIndex]?.content}
-						</pre>
-					</>
+					<div className="relative">
+						<div
+							ref={scrollRef}
+							className="lyrics-container py-[20vh] sm:py-[50vh]"
+						>
+							{allLines.map((line, index) => {
+								if (line.type === "section") {
+									return (
+										<p
+											key={index}
+											className="font-semibold mt-8 md:text-xl opacity-20"
+										>
+											{line.content}
+										</p>
+									);
+								}
+								return (
+									<p
+										key={index}
+										className={`text-3xl md:text-9xl leading-relaxed opacity-20 font-bold transition-opacity ${
+											index === currentLine
+												? "opacity-100"
+												: ""
+										}`}
+									>
+										{line.content || "\u00A0"}
+									</p>
+								);
+							})}
+						</div>
+						<div
+							className={`pointer-events-none absolute bottom-0 left-0 right-0 h-2/5 sm:h-1/4 bg-gradient-to-t ${theme.gradientStops}`}
+						/>
+					</div>
 				) : (
 					song.sections.map((section, idx) => (
-						<>
-							<p className="font-semibold italic mb-2">
+						<div key={idx}>
+							<p className="font-semibold opacity-50 -mb-6">
 								{section.section_type === "chorus"
 									? "Coro"
 									: `Estrofa ${section.sort_index}`}
 							</p>
-							<pre
-								key={idx}
-								className="whitespace-pre-wrap mb-6 text-lg leading-relaxed"
-							>
+							<pre className="mb-10 text-xl md:text-3xl leading-relaxed font-sans whitespace-pre-wrap">
 								{section.content}
 							</pre>
-						</>
+						</div>
 					))
 				)}
 			</div>
 			{presentationMode && (
-				<div className="fixed top-6 right-4 flex flex-col space-y-3 sm:hidden z-50">
+				<div className="fixed bottom-4 flex flex-row gap-2 z-50">
 					<button
 						onClick={scrollUp}
-						className="bg-white/50 hover:bg-white text-black rounded-full p-3 shadow-lg backdrop-blur"
+						className={`rounded-full p-3 shadow-lg backdrop-blur opacity-80 cursor-pointer ${theme.themeRingBackground}`}
 						aria-label="Sección anterior"
 					>
-						<ArrowUp size={20} />
+						<ArrowUp
+							size={20}
+							className={theme.themeRingForeground}
+						/>
 					</button>
 					<button
 						onClick={scrollDown}
-						className="bg-white/50 hover:bg-white text-black rounded-full p-3 shadow-lg backdrop-blur"
+						className={`rounded-full p-3 shadow-lg backdrop-blur opacity-80 cursor-pointer ${theme.themeRingBackground} ${suggestAction ? "animate-bounce" : ""}`}
 						aria-label="Siguiente sección"
 					>
-						<ArrowDown size={20} />
+						<ArrowDown
+							size={20}
+							className={theme.themeRingForeground}
+						/>
 					</button>
 				</div>
 			)}

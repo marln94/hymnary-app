@@ -24,7 +24,7 @@ function ThemeSelector({ activeThemeKey, onChange }: Props) {
 	}
 
 	return (
-		<div className="fixed bottom-4 right-4 z-50">
+		<div className="fixed bottom-4 left-4 z-50">
 			<div className="relative flex flex-col items-center gap-2">
 				{/* Círculos de tema */}
 				<div
@@ -53,10 +53,15 @@ function ThemeSelector({ activeThemeKey, onChange }: Props) {
 				{/* Botón FAB */}
 				<button
 					onClick={() => setIsOpen((prev) => !prev)}
-					className="bg-white/80 p-4 rounded-full shadow-lg hover:scale-105 transition-transform cursor-pointer"
+					className={`p-4 rounded-full shadow-lg hover:scale-105 transition-transform cursor-pointer ${
+						themes[activeThemeKey].themeRingBackground
+					}`}
 					aria-label="Seleccionar tema"
 				>
-					<Paintbrush size={20} />
+					<Paintbrush
+						size={20}
+						className={themes[activeThemeKey].themeRingForeground}
+					/>
 				</button>
 			</div>
 		</div>

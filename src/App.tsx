@@ -59,35 +59,43 @@ function App() {
 	return (
 		<div className={`${theme.background} font-sans`}>
 			<main className="container mx-auto px-4 flex flex-col min-h-screen">
-				<ThemeSelector
-					activeThemeKey={themeKey}
-					onChange={(key) => setThemeKey(key)}
-				/>
+				{!presentationMode && (
+					<ThemeSelector
+						activeThemeKey={themeKey}
+						onChange={(key) => setThemeKey(key)}
+					/>
+				)}
 
 				{selectedSong && (
-					<div className="fixed bottom-4 left-4 z-50">
+					<div className="fixed top-4 right-4 z-50">
 						<button
 							onClick={() =>
 								setPresentationMode(!presentationMode)
 							}
-							className="bg-white/80 p-4 rounded-full shadow-lg hover:scale-105 transition-transform cursor-pointer"
+							className={`p-2 rounded-full hover:scale-105 transition-transform cursor-pointer opacity-80 ${theme.background}`}
 						>
 							{presentationMode ? (
-								<Minimize2 size={16} />
+								<Minimize2
+									size={22}
+									className={theme.foreground}
+								/>
 							) : (
-								<Maximize2 size={16} />
+								<Maximize2
+									size={22}
+									className={theme.foreground}
+								/>
 							)}
 						</button>
 					</div>
 				)}
 
 				{!selectedSong ? (
-					<div className="flex-grow flex flex-col items-center transition-all duration-300 justify-center">
+					<div className="flex-grow flex flex-col items-center transition-all duration-300 justify-center h-lvh">
 						<header
 							className={`text-center pb-8 ${theme.foreground}`}
 						>
-							<h1 className="text-4xl font-bold">Himnario</h1>
-							<p className="text-muted-foreground">
+							<h1 className="text-5xl font-bold">Himnario</h1>
+							<p className="text-muted-foreground text-lg">
 								Encuentra tu himno favorito
 							</p>
 						</header>
