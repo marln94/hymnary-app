@@ -110,6 +110,49 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 	}, [presentationMode, scrollUp, scrollDown]);
 
 	useEffect(() => {
+		if (!presentationMode) return;
+
+		const handleScroll = () => {
+			if (scrollRef.current) {
+				const container = scrollRef.current;
+				const containerTop = container.getBoundingClientRect().top;
+				const containerHeight = container.clientHeight;
+				const viewportCenter = containerTop + containerHeight / 2;
+
+				let closestLine = -1;
+				let minDistance = Infinity;
+
+				for (let i = 0; i < container.children.length; i++) {
+					const lineElement = container.children[i] as HTMLElement;
+					const lineRect = lineElement.getBoundingClientRect();
+					const lineCenter = lineRect.top + lineRect.height / 2;
+					const distance = Math.abs(viewportCenter - lineCenter);
+
+					if (distance < minDistance) {
+						minDistance = distance;
+						closestLine = i;
+					}
+				}
+
+				if (closestLine !== -1) {
+					setCurrentLine(closestLine);
+				}
+			}
+		};
+
+		const scrollContainer = scrollRef.current;
+		if (scrollContainer) {
+			scrollContainer.addEventListener("scroll", handleScroll);
+		}
+
+		return () => {
+			if (scrollContainer) {
+				scrollContainer.removeEventListener("scroll", handleScroll);
+			}
+		};
+	}, [presentationMode, setCurrentLine]);
+
+	useEffect(() => {
 		setCurrentLine(0);
 		if (scrollRef.current) {
 			scrollRef.current.scrollTop = 0;
@@ -133,9 +176,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 					</button>
 				</div>
 			)}
-			<div
-				className={`text-center w-full pt-4 sm:pt-0 ${theme.foreground}`}
-			>
+			<div className={`text-center w-full pt-0 ${theme.foreground}`}>
 				{!presentationMode && (
 					<header
 						className={`text-3xl font-bold my-10 ${theme.foreground}`}
@@ -148,14 +189,14 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 					<div className="relative">
 						<div
 							ref={scrollRef}
-							className="lyrics-container py-[20vh] sm:py-[50vh]"
+							className="lyrics-container py-[50vh]"
 						>
 							{allLines.map((line, index) => {
 								if (line.type === "section") {
 									return (
 										<p
 											key={index}
-											className="font-semibold mt-8 md:text-xl opacity-20"
+											className="font-semibold mt-8 md:text-xl opacity-20 cursor-default"
 										>
 											{line.content}
 										</p>
@@ -164,7 +205,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 								return (
 									<p
 										key={index}
-										className={`text-3xl md:text-9xl leading-relaxed opacity-20 font-bold transition-opacity ${
+										className={`text-3xl sm:text-5xl md:text-7xl lg:text-9xl leading-relaxed opacity-20 font-bold transition-opacity px-4 sm:px-16 cursor-default ${
 											index === currentLine
 												? "opacity-100"
 												: ""
@@ -195,7 +236,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 				)}
 			</div>
 			{presentationMode && (
-				<div className="fixed bottom-4 flex flex-row gap-2 z-50">
+				<div className="fixed bottom-4 flex-row gap-2 z-50 hidden sm:flex">
 					<button
 						onClick={scrollUp}
 						className={`rounded-full p-3 shadow-lg backdrop-blur opacity-80 cursor-pointer ${theme.themeRingBackground}`}

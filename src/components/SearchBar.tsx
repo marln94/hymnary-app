@@ -20,6 +20,7 @@ function SearchBar({ value, onChange, theme }: Props) {
 				<button
 					onClick={() => onChange("")}
 					className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+					aria-label="Limpiar búsqueda"
 				>
 					<svg
 						className={`w-5 h-5 ${theme.foreground}`}
