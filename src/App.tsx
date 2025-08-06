@@ -133,7 +133,7 @@ function App() {
 
 	return (
 		<div className={`${theme.background} font-sans`}>
-			<main className="container mx-auto px-4 flex flex-col min-h-screen">
+			<main className="flex flex-col min-h-screen">
 				{!presentationMode && (
 					<ThemeSelector
 						activeThemeKey={themeKey}
@@ -148,6 +148,7 @@ function App() {
 								setPresentationMode(!presentationMode)
 							}
 							className={`p-2 rounded-full hover:scale-105 transition-transform cursor-pointer opacity-80 ${theme.background}`}
+							aria-label="Cambiar modo de presentación"
 						>
 							{presentationMode ? (
 								<Minimize2
