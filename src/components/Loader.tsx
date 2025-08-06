@@ -1,5 +1,4 @@
 import type { Theme } from "../types";
-// import { Loader } from "lucide-react";
 
 type Props = {
 	theme: Theme;
