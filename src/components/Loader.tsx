@@ -8,6 +8,7 @@ type Props = {
 function Loader({ theme }: Props) {
 	return (
 		<div className={`flex-grow flex flex-col items-center justify-center `}>
+			<p className="font-semibold mb-4">Cargando</p>
 			<div className="flex items-center justify-center space-x-2">
 				<div
 					className={`w-4 h-4 rounded-full animate-pulse ${theme.themeRingBackground}`}
