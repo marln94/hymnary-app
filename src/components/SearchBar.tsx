@@ -8,13 +8,13 @@ type Props = {
 
 function SearchBar({ value, onChange, theme }: Props) {
 	return (
-		<div className="relative max-w-3xl w-full">
+		<div className="relative max-w-xl 2xl:max-w-3xl w-full mx-4 sm:mx-0">
 			<input
 				type="text"
 				placeholder="Buscar por título, número o letra..."
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
-				className={`w-full p-4 pr-10 text-lg bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition-colors ${theme.foreground} ${theme.placeholder}`}
+				className={`w-full px-4 py-2 2xl:py-4 pr-10 text-lg bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition-colors ${theme.foreground} ${theme.placeholder}`}
 			/>
 			{value ? (
 				<button

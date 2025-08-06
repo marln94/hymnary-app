@@ -103,12 +103,12 @@ function App() {
 					/>
 				</div>
 
-				<div className="flex justify-center flex-col items-center w-full max-w-3xl">
-					<ul className="mt-6 space-y-2 max-w-3xl w-full">
+				<div className="flex justify-center flex-col items-center w-full max-w-xl 2xl:max-w-3xl px-4 sm:px-0">
+					<ul className="mt-4 space-y-2 w-full">
 						{hits.map((song) => (
 							<li
 								key={song.number}
-								className={`p-4 rounded-lg cursor-pointer transition-colors flex gap-5 justify-between ${theme.li} ${theme.liHover}`}
+								className={`px-4 py-2 2xl:py-4 rounded-lg cursor-pointer transition-colors flex gap-5 justify-between ${theme.li} ${theme.liHover}`}
 								onClick={() => selectSong(song)}
 							>
 								<p
