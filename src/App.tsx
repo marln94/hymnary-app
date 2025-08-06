@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Maximize2, Minimize2 } from "lucide-react";
 
@@ -7,13 +7,12 @@ import type { Song, Theme, ThemeKey } from "./types";
 import { themes } from "./themes";
 
 import SearchBar from "./components/SearchBar";
-import SongViewer from "./components/SongViewer";
 import ThemeSelector from "./components/ThemeSelector";
 import Loader from "./components/Loader";
 
 import { useFuse } from "./hooks/useFuse";
 
-import hymns from "./data/hymns.module.json";
+const SongViewer = lazy(() => import("./components/SongViewer"));
 
 const fuseOptions = {
 	threshold: 0.3,
@@ -37,8 +36,19 @@ function App() {
 	const { hits, onSearch, query, updateQuery } = useFuse(songs, fuseOptions);
 
 	useEffect(() => {
-		setSongs(hymns as Song[]);
-		setLoading(false);
+		const fetchSongs = async () => {
+			try {
+				const response = await fetch("/hymns.json");
+				const data = await response.json();
+				setSongs(data as Song[]);
+			} catch (error) {
+				console.error("Error fetching songs:", error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchSongs();
 	}, []);
 
 	useEffect(() => {
@@ -66,12 +76,14 @@ function App() {
 
 		if (selectedSong) {
 			return (
-				<SongViewer
-					song={selectedSong}
-					onBack={() => onSongBack()}
-					theme={theme}
-					presentationMode={presentationMode}
-				/>
+				<Suspense fallback={<Loader theme={theme} />}>
+					<SongViewer
+						song={selectedSong}
+						onBack={() => onSongBack()}
+						theme={theme}
+						presentationMode={presentationMode}
+					/>
+				</Suspense>
 			);
 		}
 
