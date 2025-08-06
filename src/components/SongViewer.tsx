@@ -205,7 +205,7 @@ function SongViewer({ song, onBack, theme, presentationMode }: Props) {
 								return (
 									<p
 										key={index}
-										className={`text-3xl sm:text-5xl md:text-7xl lg:text-9xl leading-relaxed opacity-20 font-bold transition-opacity px-4 sm:px-16 cursor-default ${
+										className={`text-3xl sm:text-5xl md:text-7xl lg:text-7xl xl:text-8xl 2xl:text-9xl leading-relaxed opacity-20 font-bold transition-opacity px-4 sm:px-16 cursor-default ${
 											index === currentLine
 												? "opacity-100"
 												: ""
