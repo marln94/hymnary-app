@@ -10905,5 +10905,27 @@
 				"content": "\nHe aquí que así será bendito el hombre\nQue teme, que teme a Jehová.\nBendígate Jehová desde Sión,\nY veas el bien de Jerusalén\nTodos lo días de tu vida.\nY veas los hijos de tus hijos,\nY la paz sobre Israel."
 			}
 		]
+	},
+	{
+		"number": 10145,
+		"title": "SALMO 145",
+		"sections": [
+			{
+				"section_type": "verse",
+				"content": "Te exaltaré, mi Dios, mi Rey,\nY bendeciré tu nombre\neternamente y para siempre.\nCada día te bendeciré."
+			},
+			{
+				"section_type": "chorus",
+				"content": "Y alabaré tu nombre eternamente y para siempre.\nGrande es Jehová, y digno de suprema alabanza;\nY su grandeza es inescrutable.\nCada día te bendeciré."
+			},
+			{
+				"section_type": "verse",
+				"content": "Generación a generación celebrará tus obras,\nY anunciará tus poderosos hechos.\nCada día te bendeciré."
+			},
+			{
+				"section_type": "chorus",
+				"content": "Y alabaré tu nombre eternamente y para siempre.\nGrande es Jehová, y digno de suprema alabanza;\nY su grandeza es inescrutable.\nCada día te bendeciré."
+			}
+		]
 	}
 ]
